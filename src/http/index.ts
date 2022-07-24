@@ -1,8 +1,8 @@
 import dotenv from 'dotenv'
 import axios from 'axios';
 
-const $host = axios.create({
-    baseURL: process.env.API_URL
+const $simpleHost = axios.create({
+    baseURL: 'http://localhost:8000/'
 });
 const $authHost = axios.create({
     baseURL : process.env.API_URL
@@ -15,6 +15,6 @@ const authInterceptor = (config : any) => {
 $authHost.interceptors.request.use(authInterceptor);
 
 export {
-    $host,
-    $authHost
+    $authHost, 
+    $simpleHost
 }

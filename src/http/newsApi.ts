@@ -1,8 +1,20 @@
-import { $host } from ".";
-import axios from 'axios'
-import { INewsItem } from '../types/types';
+import { $authHost, $simpleHost } from "./index";
+import jwt_decode from 'jwt-decode'
 
-export const fetchPosts = async () => {
-    const arr = axios.get(`${process.env.API_URL}api/news`);
-    return arr
+export const registration = async (username: string, password : string) => {
+    const {data} = await $simpleHost.post('api/auth/registration', {
+        username,
+        password
+    });
+    localStorage.setItem('token', data.token)
+    return jwt_decode(data.token)
+}
+
+export const login = async (username: string, password : string) => {
+    const {data} = await $simpleHost.post('api/auth/login', {
+        username,
+        password
+    });
+    localStorage.setItem('token', data.token)
+    return jwt_decode(data.token)
 }

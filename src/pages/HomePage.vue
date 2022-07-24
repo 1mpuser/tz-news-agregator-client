@@ -42,7 +42,6 @@ export default defineComponent({
 			try {
 				this.isPostsLoading = true;
 				const { data } = await axios.get('http://localhost:8000/api/news');
-				console.log(data);
 				//const { data } = JSON.parse(String(json));
 				this.newsItems.push(...data);
 			} catch (error) {

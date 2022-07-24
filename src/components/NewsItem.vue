@@ -47,15 +47,15 @@ export default defineComponent({
 	methods: {
 		takeAPicture() {
 			// const div = this.$children;
-			const elem = this.$el.querySelector('.photo');
+			// const elem = this.$el.querySelector('.photo');
 			// elem.setAttribute(
 			// 	'background-color',
 			// 	`url(http://localhost:8000/${this.url})`
 			// );
 			//elem.style.cssText += `background-color : url(http://localhost:8000/${this.url})`;
 			//elem.src = 'http://localhost:8000/' + this.url;
-			console.log(this.newsItem);
-			console.log(this.url);
+			// console.log(this.newsItem);
+			// console.log(this.url);
 			//this.url = newsItem.img;
 			// if (this.url && div) {
 			// 	const str = `url(${this.url}.jpg)`;
@@ -66,7 +66,6 @@ export default defineComponent({
 		},
 	},
 	mounted() {
-		console.log('!');
 		this.takeAPicture();
 	},
 });
