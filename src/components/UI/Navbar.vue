@@ -1,6 +1,5 @@
 <template>
 	<div class="navbar">
-		<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" />
 		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 			<div class="container-fluid">
 				<router-link class="navbar-brand" to="/">News</router-link>
@@ -49,7 +48,7 @@
 	</div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
 import store from '../../store/index';
 import { MutationTypes } from '../../store/types';

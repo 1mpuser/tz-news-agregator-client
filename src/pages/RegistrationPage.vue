@@ -7,7 +7,7 @@
 				placeholder="Enter your username"
 				class="input"
 				v-bind:value="username"
-				@input="username = $event.target && $event.target.value"
+				@input="inputUsernameHandler"
 			/>
 			<br />
 			<input
@@ -15,7 +15,7 @@
 				placeholder="Enter your password"
 				class="input"
 				v-bind:value="password"
-				@input="password = $event.target && $event.target.value"
+				@input="inputPasswordHandler"
 			/>
 			<br />
 			<div>
@@ -60,11 +60,22 @@ export default defineComponent({
 				store.commit(MutationTypes.SET_USERNAME, this.username);
 				this.username = '';
 				this.password = '';
-			} catch (error) {
+				this.$router.push('/');
+			} catch (error: any) {
 				alert(error.response.data.message);
 			} finally {
 				this.isLoading = false;
 			}
+		},
+		inputPasswordHandler(event: Event) {
+			const HTMLElem: HTMLTextAreaElement = event.target as HTMLTextAreaElement;
+			const value = HTMLElem.value;
+			this.password = String(value);
+		},
+		inputUsernameHandler(event: Event) {
+			const HTMLElem: HTMLTextAreaElement = event.target as HTMLTextAreaElement;
+			const value = HTMLElem.value;
+			this.username = String(value);
 		},
 	},
 });

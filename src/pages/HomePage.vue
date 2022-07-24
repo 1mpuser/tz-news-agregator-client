@@ -1,40 +1,63 @@
 <template>
 	<div class="main">
-		<news :news="newsItems" v-if="!isPostsLoading" />
-		<div v-else>Downloading...</div>
+		<div v-if="!isPostsLoading" style="text-align: center">
+			<createPostButton v-if="$store.state.isAuth"
+				>Create post</createPostButton
+			>
+			<modal-window
+				:author="creatingItem.author"
+				:text="creatingItem.text"
+				:title="creatingItem.title"
+				:date-of-create="creatingItem.dateOfCreate"
+			></modal-window>
+			<news :news="newsItems" />
+		</div>
+		<div v-else>
+			<loadingElem></loadingElem>
+		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import News from '../components/News.vue';
+import { nanoid } from 'nanoid';
+import { defineComponent } from 'vue';
 import axios from 'axios';
+import store from '../store/index';
+import createPostButton from '../components/UI/createPostButton.vue';
+import News from '../components/News.vue';
 import NewsItem from '../components/NewsItem.vue';
 import { INewsItem } from '../types/types';
-import { defineComponent } from 'vue';
+import LoadingElem from '../components/UI/loadingElem.vue';
+import modalWindow from '../components/UI/modalWindow.vue';
+import formatedDate from '../scripts/formatedDate';
 interface IData {
 	newsItems: INewsItem[];
 	isPostsLoading: boolean;
+	modalWindowVisible: boolean;
+	creatingItem: INewsItem;
 }
 
 export default defineComponent({
 	components: {
 		NewsItem,
 		News,
+		LoadingElem,
+		createPostButton,
+		modalWindow,
 	},
 	data(): IData {
 		return {
-			newsItems: [
-				{
-					author: 'Joe Dunne',
-					dateOfCreate: '15th January 2022',
-					img: 'http://localhost:8000/0db5438c-a9f3-43f0-b27c-3c8c3858a317.jpg',
-					text: 'Pariatur enim nulla proident elit Lorem.',
-					title:
-						'Elit duis mollit sint adipisicing nostrud ad tempor enim occaecat.',
-					_id: '48214y234184221',
-				},
-			],
+			newsItems: [],
 			isPostsLoading: false,
+			modalWindowVisible: false,
+			creatingItem: {
+				title: '',
+				author: store.state.username,
+				dateOfCreate: formatedDate(),
+				img: '',
+				text: '',
+				_id: nanoid(),
+			},
 		};
 	},
 	methods: {
@@ -52,7 +75,6 @@ export default defineComponent({
 		},
 	},
 	mounted() {
-		console.log('Works');
 		this.fetchNews();
 	},
 });
