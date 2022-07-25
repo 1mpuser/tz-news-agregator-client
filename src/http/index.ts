@@ -5,10 +5,10 @@ const $simpleHost = axios.create({
     baseURL: 'http://localhost:8000/'
 });
 const $authHost = axios.create({
-    baseURL : process.env.API_URL
+    baseURL : 'http://localhost:8000/'
 })
 const authInterceptor = (config : any) => {
-    config.headers.authoriztion = `Bearer ${localStorage.getItem('token')}`
+    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
     return config;
 }
 

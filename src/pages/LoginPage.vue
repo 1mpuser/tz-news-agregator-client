@@ -60,7 +60,7 @@ export default defineComponent({
 			try {
 				this.isLoading = true;
 				setTimeout(() => console.log(), 100000);
-				let data = await login(this.username, this.password);
+				const data = await login(this.username, this.password);
 				store.commit(MutationTypes.LOG_IN);
 				store.commit(MutationTypes.SET_USERNAME, this.username);
 				this.username = '';
